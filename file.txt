@@ -1,0 +1,298 @@
+# EXAM FOR WEEK 6
+
+## KEEP IN MIND: YOU ARE DOING THIS FOR YOUR BRIGHT FUTURE, SO GIVE YOUR 120%!
+## ПОМНИТЕ: ВЫ ДЕЛАЕТЕ ЭТО ДЛЯ СВОЕГО СВЕТЛОГО БУДУЩЕГО, ПОЭТОМУ ВЫКЛАДЫВАЙТЕСЬ НА ВСЕ СВОИ 120%!
+
+## RULES:
+> No interner, no help to each other!
+
+> Make one file and place all your work there (e.g. odina_kholiqov.py)
+
+> Send the file at 
+
+> You have 2 hours only
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 1 
+Create an abstract class FileHandler with methods read and write. Implement a subclas TextFileHandler for handling text.
+Абстракт клас FileHandler бо методҳои абстрактии read ва write созед. Зерклас(subclas) - и TextFileHandler бошад методҳои класи асосиро амалӣ(Implement, реализовать) кунад.
+### EXAMPLE
+    text_handler = TextFileHandler()
+    text_handler.write('textfile.txt', 'Hello, World!')
+    text_handler.write('textfile.txt', 'Salom Jahon!')
+    print(text_handler.read('textfile.txt'))
+# OUTPUT
+    Hello World!
+    Salom Jahon!
+
+
+
+
+from abc import ABC,abstractmethod
+
+class FileHandler(ABC):
+    @abstractmethod
+    def read(self):
+        with open("text.txt" ,"r") as file:
+            a=file.read()
+        return(a)
+    @abstractmethod
+    def write(self,var):
+        with open("text.txt","a") as file:
+            x=file.write(var+"\n")
+        return x
+
+
+class Subclass(FileHandler):
+    def read(self):
+        return super().read()
+    def write(self, var):
+        return super().write(var)
+
+
+ob1=Subclass()
+ob1.write("salom")
+ob1.write("hello")
+print(ob1.read())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 2
+Define an abstract base class Notification with an abstract method send. Implement subclasses EmailNotification and SMSNotification. 
+
+Як абстракт класи Notification бо абстракт методи send созед. Зерклас(subclas) - ҳои EmailNotification ва SMSNotification ро барои амалӣ(Implement, реализовать) кардани методи send - и класси асосӣ созед.
+### EXAMPLE
+    email_notifier = EmailNotification()
+    sms_notifier = SMSNotification()
+    print(email_notifier.send("Hello via Email", "user@example.com"))
+    print(sms_notifier.send("Hello via SMS", "+1234567890"))
+# OUTPUT
+    Sent email to user@example.com: Hello via Email
+    Sent SMS to +1234567890: Hello via SMS
+
+
+
+from abc import ABC,abstractmethod
+
+class Notification(ABC):
+    @abstractmethod
+    def send(self):
+        pass
+
+class EmailNotification(Notification):
+    def send(self,mass,ad):
+        return f"Send email to {ad}: {mass} "
+class SMSNotification(Notification):
+    def send(self,mass,ad):
+        return f"Send email to {ad}: {mass} " 
+
+email_notifier = EmailNotification()
+sms_notifier = SMSNotification()
+print(email_notifier.send("Hello via Email", "user@example.com"))
+print(sms_notifier.send("Hello via SMS", "+1234567890"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 3
+Define an enum HttpStatus with a few HTTP status codes (e.g., OK, NOT_FOUND, INTERNAL_SERVER_ERROR). Write a function that returns a message based on the status code.
+
+Як enum бо номи HttpStatus созед бо қимматҳои (OK:200, NOT_FOUND:404, INTERNAL_SERVER_ERROR:500). Функсияи get_status_message созед, ки аз руйи статуси додашуда дар консол ягон текст нависад.
+### EXAMPLE
+    print(get_status_message(HttpStatus.OK))
+    print(get_status_message(HttpStatus.NOT_FOUND)) 
+# OUTPUT
+    Success
+    Not Found
+
+
+class HttpStatus:
+    OK="sucsess"
+    NOT_FOUND="not fond"
+    INTERNAL_SERVER_ERROR="error"
+
+def get_status_message(mass):
+    return mass
+
+print(get_status_message(HttpStatus.OK))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 4
+Create two asynchronous functions task1 and task2 that each print messages at different intervals. Create a main function for calling functions. Use asyncio.gather to run them concurrently.
+
+Ду функсияи асинхронии task1 ва task2 созед ки онҳо ягон текстро дар консол бо каме нигоҳ доштани вақт нишон диҳанд. Функсияи main - ро барои даъват кардани фунсияҳо созед.  Барои ба кор даровардани барнома аз asyncio.gather истифода баред.
+
+import asyncio
+
+
+async def task1():
+  print("task 1 started..")
+  await asyncio.sleep(5)
+  print("task 1 Ended")
+
+async def task2():
+  print("task 2 started..")
+  await asyncio.sleep(3)
+  print("task2 2 Ended")
+
+async def main():
+  L = await asyncio.gather(
+    task1(),
+    task2()
+    
+  )
+  print("Main Ended..")
+
+
+asyncio.run(main())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 5 Question
+Create a base class Sorter with an abstract method sort. Implement subclasses BubbleSort and QuickSort that provide their own sorting algorithms.
+
+Класи асосии Sorter - ро бо методи sort созед. Зерклас(subclas) - ҳои BubbleSort ва QuickSort ро барои иҷрокунии методи sort бо зайлҳои худашон истифода баред. 
+
+### EXAMPLE
+    data = [3, 6, 8, 10, 1, 2, 1]
+    buble = BubbleSort()
+    buble.sort(data)
+    quick = QuickSort()
+    quick.sort(data)
+# OUTPUT
+    buble sorted list: [1, 1, 2, 3, 6, 8, 10]
+    quick sorted list: [1, 1, 2, 3, 6, 8, 10]
+
+
+
+class Sorter:
+    def sort(self):
+        pass
+
+class BubbleSort(Sorter):
+    def sort(self,data):
+        for i in range(len(data)):
+            for j in range(len(data)-i-1):
+                if data[j]>data[j+1]:
+                    data[j],data[j+1]=data[j+1],data[j]
+        return data
+
+class QuickSort(Sorter):
+    def sort(self,data):
+        data.sort()
+        return data
+
+
+
+list1=[2,7,4,8,3,4]
+ob1=BubbleSort()
+print(ob1.sort(list1))
+ob2=QuickSort()
+print(ob2.sort(list1))
+
+
+
